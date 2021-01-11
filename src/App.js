@@ -32,8 +32,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: "init",
-      computerChoice: "init"
+      userChoice: "",
+      computerChoice: "",
+      winner: ""
     };
 
     this.arrayGame = ["rock", "paper", "scissors"];
@@ -45,11 +46,14 @@ export default class App extends React.Component {
     let computerChoice = this.arrayGame[
       Math.floor(Math.random() * this.arrayGame.length)
     ];
-    this.setState({ computerChoice: computerChoice });
+    let winner = getWiner(computerChoice, this.state.userChoice);
+
+    this.setState({ computerChoice: computerChoice, winner: winner });
+
     console.log("---------- start game ---------------");
     console.log("computerChoice=", computerChoice);
     console.log("userChoice=", this.state.userChoice);
-    console.log("winner=", getWiner(computerChoice, this.state.userChoice));
+    console.log("winner=", winner);
     console.log("---------- end game ---------------");
   }
 
@@ -100,7 +104,7 @@ export default class App extends React.Component {
           style={this.state.userChoice === "scissors" ? activeElement : null}
         ></img>
         <h1>PC: {this.state.computerChoice}</h1>
-        <h1>PC winn!</h1>
+        <h1>Winner: {this.state.winner} </h1>
       </div>
     );
   }
